@@ -37,6 +37,9 @@
 </template>
 
 <script lang="ts">
+import PostDataService from '@/services/PostDataService';
+import ProductDataService from '@/services/ProductDataService';
+import ResponseData from '@/types/ResponseData';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
@@ -46,6 +49,24 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class HelloWorld extends Vue {
   msg!: string
+
+created() {
+  this.getPosts();
+}
+ /**
+  * name
+  */
+ public getPosts() {
+  PostDataService.getAll()
+        .then((response: ResponseData) => {
+          console.log(response);
+          console.log(response.data);
+          
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
+ }
 }
 </script>
 
